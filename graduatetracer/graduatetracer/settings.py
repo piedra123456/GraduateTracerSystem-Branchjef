@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'graduatetracer.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'trackingsys',
+         'NAME': 'tracker',
          'USER': 'root',
          'PASSWORD': 'graduatetracer',
          'PORT': 3307,

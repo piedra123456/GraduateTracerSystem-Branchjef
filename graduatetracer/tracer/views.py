@@ -136,6 +136,26 @@ def DashboardUser(request):
 
 
 def available_jobs(request):
+
+    jobs = Advertise.objects.all().order_by('-date_created')
+    job_categories = JobCategory.objects.all().order_by('-id')
+    announcements = Announcement.objects.all().order_by('-date_created')
+
+    top_notif_announcements = Announcement.objects.all().order_by('-date_created').filter(announcement_notif_counter=False)[:3]
+    top_notif_jobs = Advertise.objects.all().order_by('-date_created').filter(job_advertise_notif_counter=False)[:3]
+
+    user = request.user
+    user_chat_bot_notifications_count = chat_bot_notifications_counter(user)
+    user_top_nav_notifications_counter = top_nav_notifications_counter(user)
+
+    user_announcement_notifications_counter = announcement_notifications_counter(
+        user)
+    user_job_advertise_notifications_counter = job_advertise_notifications_counter(
+        user)
+    user_job_request_notifications_counter = job_request_notifications_counter(
+        user)
+    user_job_category_notif_counter = job_category_notifications_counter(user)
+
     ads = Advertise.objects.all().order_by('-id')
     query_title = []
     query_address_1 = []
@@ -170,7 +190,18 @@ def available_jobs(request):
     else:
         ads = Advertise.objects.all().order_by('-id')
 
-    context = {'ads': ads,
+    context = {'announcements': announcements,
+                'jobs': jobs,
+                'job_categories': job_categories,
+                'top_notif_announcements': top_notif_announcements,
+                'top_notif_jobs': top_notif_jobs,
+                'user_chat_bot_notifications_count': user_chat_bot_notifications_count,
+                'user_top_nav_notifications_counter': user_top_nav_notifications_counter,
+                'user_announcement_notifications_counter': user_announcement_notifications_counter,
+                'user_job_advertise_notifications_counter': user_job_advertise_notifications_counter,
+                'user_job_request_notifications_counter': user_job_request_notifications_counter,
+                'user_job_category_notif_counter': user_job_category_notif_counter,
+                'ads': ads,
                'query_title': query_title,
                'query_category': query_category,
                'query_salary': query_salary,
@@ -675,11 +706,40 @@ class PostListView(LoginRequiredMixin, View):
         form = PostForm()
         grad_infos = User.objects.all().order_by('-id')
         user = request.user
+        jobs = Advertise.objects.all().order_by('-date_created')
+        job_categories = JobCategory.objects.all().order_by('-id')
+        announcements = Announcement.objects.all().order_by('-date_created')
+
+        top_notif_announcements = Announcement.objects.all().order_by('-date_created').filter(announcement_notif_counter=False)[:3]
+        top_notif_jobs = Advertise.objects.all().order_by('-date_created').filter(job_advertise_notif_counter=False)[:3]
+
+        user = request.user
+        user_chat_bot_notifications_count = chat_bot_notifications_counter(user)
+        user_top_nav_notifications_counter = top_nav_notifications_counter(user)
+
+        user_announcement_notifications_counter = announcement_notifications_counter(
+            user)
+        user_job_advertise_notifications_counter = job_advertise_notifications_counter(
+            user)
+        user_job_request_notifications_counter = job_request_notifications_counter(
+            user)
+        user_job_category_notif_counter = job_category_notifications_counter(user)
 
         context = {
             'post_list': posts,
             'form': form,
             'grad_infos': grad_infos,
+             'announcements': announcements,
+            'jobs': jobs,
+            'job_categories': job_categories,
+            'top_notif_announcements': top_notif_announcements,
+            'top_notif_jobs': top_notif_jobs,
+            'user_chat_bot_notifications_count': user_chat_bot_notifications_count,
+            'user_top_nav_notifications_counter': user_top_nav_notifications_counter,
+            'user_announcement_notifications_counter': user_announcement_notifications_counter,
+            'user_job_advertise_notifications_counter': user_job_advertise_notifications_counter,
+            'user_job_request_notifications_counter': user_job_request_notifications_counter,
+            'user_job_category_notif_counter': user_job_category_notif_counter,
         }
 
         return render(request, 'tracer/user/post_list.html', context)
@@ -697,16 +757,12 @@ class PostListView(LoginRequiredMixin, View):
         job_categories = JobCategory.objects.all().order_by('-id')
         announcements = Announcement.objects.all().order_by('-date_created')
 
-        top_notif_announcements = Announcement.objects.all().order_by(
-            '-date_created').filter(announcement_notif_counter=False)[:3]
-        top_notif_jobs = Advertise.objects.all().order_by(
-            '-date_created').filter(job_advertise_notif_counter=False)[:3]
+        top_notif_announcements = Announcement.objects.all().order_by('-date_created').filter(announcement_notif_counter=False)[:3]
+        top_notif_jobs = Advertise.objects.all().order_by('-date_created').filter(job_advertise_notif_counter=False)[:3]
 
         user = request.user
-        user_chat_bot_notifications_count = chat_bot_notifications_counter(
-            user)
-        user_top_nav_notifications_counter = top_nav_notifications_counter(
-            user)
+        user_chat_bot_notifications_count = chat_bot_notifications_counter(user)
+        user_top_nav_notifications_counter = top_nav_notifications_counter(user)
 
         user_announcement_notifications_counter = announcement_notifications_counter(
             user)
@@ -714,22 +770,21 @@ class PostListView(LoginRequiredMixin, View):
             user)
         user_job_request_notifications_counter = job_request_notifications_counter(
             user)
-        user_job_category_notif_counter = job_category_notifications_counter(
-            user)
+        user_job_category_notif_counter = job_category_notifications_counter(user)
 
 
 
-        context = {'announcements': announcements,
-                   'jobs': jobs,
-                   'job_categories': job_categories,
-                   'top_notif_announcements': top_notif_announcements,
-                   'top_notif_jobs': top_notif_jobs,
-                   'user_chat_bot_notifications_count': user_chat_bot_notifications_count,
-                   'user_top_nav_notifications_counter': user_top_nav_notifications_counter,
-                   'user_announcement_notifications_counter': user_announcement_notifications_counter,
-                   'user_job_advertise_notifications_counter': user_job_advertise_notifications_counter,
-                   'user_job_request_notifications_counter': user_job_request_notifications_counter,
-                   'user_job_category_notif_counter': user_job_category_notif_counter,
+        context = { 'announcements': announcements,
+                    'jobs': jobs,
+                    'job_categories': job_categories,
+                    'top_notif_announcements': top_notif_announcements,
+                    'top_notif_jobs': top_notif_jobs,
+                    'user_chat_bot_notifications_count': user_chat_bot_notifications_count,
+                    'user_top_nav_notifications_counter': user_top_nav_notifications_counter,
+                    'user_announcement_notifications_counter': user_announcement_notifications_counter,
+                    'user_job_advertise_notifications_counter': user_job_advertise_notifications_counter,
+                    'user_job_request_notifications_counter': user_job_request_notifications_counter,
+                    'user_job_category_notif_counter': user_job_category_notif_counter,
                    'post_list': posts,
                    'form': form,
                    }
