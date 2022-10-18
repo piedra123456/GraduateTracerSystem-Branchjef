@@ -179,10 +179,14 @@ def profile_picture(request, pk):
                 user.profile_picture = fs.save(
                     profile_picture.name, profile_picture)
                 user_info.save()
+                messages.success(
+                    request, 'Your Profile Updated Successfully')
                 return redirect('DashboardAdmin')
         else:
             if user_info.is_valid():
                 user_info.save()
+                messages.success(
+                    request, 'Your Profile Updated Successfully')
                 return redirect('DashboardAdmin')
 
     context = {'user': user, 'user_info': user_info, 'full_name': full_name}
@@ -208,6 +212,29 @@ def add_announcements(request):
 
     context = {'announcements': announcements, }
     return render(request, 'tracer/admin/announcement.html', context)
+
+def update_announcement(request, pk):
+    announce = Announcement.objects.get(id=pk)
+    announcements = AnnouncementForm(instance=announce)
+
+    if request.method == 'POST':
+        announcements = AnnouncementForm(request.POST, request.FILES, instance=announce)
+        if announcements.is_valid():
+            announcements.save()
+            messages.success(
+                request, 'You have successfully updated the Announcement')
+            return redirect('display_announcements')
+    else:
+        an = AnnouncementForm()
+
+    context = {'announcements': announcements, }
+    return render(request, 'tracer/admin/update_announcements.html', context)
+
+def delete_announcement(request, pk):
+    delete_announcement = Announcement.objects.get(id=pk)
+    delete_announcement.delete()
+    messages.success(request, 'Successfully Deleted')
+    return redirect('display_announcements')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['is_admin_sao'])

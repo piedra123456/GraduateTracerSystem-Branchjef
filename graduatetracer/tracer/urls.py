@@ -85,11 +85,13 @@ urlpatterns = [
          name="display_job_category_notification"),
 
 
-    # admin URLs ...
+    # Sao URLs ...
     path('admindashboard/', sao.DashboardAdmin, name="DashboardAdmin"),
     path('profile-picture/<int:pk>/',
          sao.profile_picture, name="profile_picture"),
     path('announcement/', sao.add_announcements, name="add_announcements"),
+    path('update_announcement/<int:pk>/', sao.update_announcement, name="update_announcement"),
+    path('delete_announcement/<int:pk>/', sao.delete_announcement, name="delete_announcement"),
     path('browse-announcements/', sao.display_announcement,
          name="display_announcements"),
     path('users/', sao.users, name="users"),
@@ -148,6 +150,7 @@ urlpatterns = [
     #admindashboard
      path('admindash/', systemadmin.admindash, name='admindash'),
      path('create-user-management', systemadmin.create_user_management, name="create_user_management"),
+
      path('display-user-management', systemadmin.display_user_management, name="display_user_management"),
 
      #School Reports

@@ -3,18 +3,10 @@
 {% load static %}
 {% block content %}
 <div class="container mt-4">
-  <div class="row">
-      <div class="col-md-12">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{% url 'HomeJobExperience' %}">Job Experiences</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Add Job Experience</li>
-            </ol>
-          </nav>
-        </div>
-  </div>
-
   <div class="card">
+    <div class="card-header py-3 bg-c-ads">
+        <h3 class="m-0 font-weight-bold text-white">ADD JOB EXPERIENCES</h3>
+    </div>
     <div class="card-body">
       <form action = "{% url 'AddJobExperience' %}" method = "post">
         {% include 'tracer/user/JobExperience/_messages.html' %}
@@ -82,12 +74,20 @@
       </div>
 
       <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <button type="submit" class="btn bg-gradient-info text-white btn-block">
+        <div class="col-lg-6 mt-2">
+          <a href="{% url 'HomeJobExperience' %}" class="btn btn-warning text-white btn-block">
+              <span class="icon text-white">
+                  <i class="fas fa-exclamation-triangle"></i>
+              </span>
+              <span class="text">Cancel</span>
+          </a>
+        </div>
+        <div class="col-lg-6 mt-2">
+          <button  type="submit" class="btn bg-gradient-info text-white btn-block">
               <span class="icon text-white">
                   <i class="fas fa-check"></i>
               </span>
-              <span class="text">Save</span>
+              <span class="text">Save Changes</span>
           </button>
         </div>
       </div>
