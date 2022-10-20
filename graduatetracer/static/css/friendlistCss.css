@@ -58,6 +58,13 @@ body{
     margin-left: -34px;
     margin-top: -2px;
 }
+
+img.post-image {
+    vertical-align: middle;
+    border-style: none;
+    max-width: 100%;
+}
+
 a#\/graduate\/display-info\/ {
     margin-top: -23px;
 }
@@ -103,7 +110,6 @@ a.fas.fa-ellipsis-v.text-black{
 }
 .card-footer.row.w-100.m-auto {
     margin-bottom: -8px!important;
-    height: 53px;
 }
 .fa-thumbs-up:hover {
     color: #005dff;

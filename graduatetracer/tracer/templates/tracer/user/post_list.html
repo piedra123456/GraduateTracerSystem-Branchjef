@@ -59,7 +59,7 @@
                           <div class="mr-inherit">
                             <a class="nav-link post">
                                 <img class="img-profile1 rounded-circle" src="{{post.author.profile_picture.url}}" width=" 40" height="40" alt="User-Profile-Image">
-                                <span class="mr-2 d-none d-lg-inline-flex text-gray-700 small"><strong>{{post.author.first_name}} {{post.author.middle_name}} {{post.author.last_name}}</strong></span>
+                                <span class="mr-2 d-lg-inline-flex text-gray-700 small"><strong>{{post.author.first_name}} {{post.author.middle_name}} {{post.author.last_name}}</strong></span>
                             </a>
                             <div class="mt-0 text-dark">
                                 <font class="font1" size="0">{{post.created_on}}</font>
@@ -85,7 +85,7 @@
                         <p>{{ post.body }}</p>
                         <div class="position-relative text-brown mt-1">
                         {% if post.image %}
-                            <img src="{{ post.image.url }}" class="post-image" />
+                            <img src="{{ post.image.url }}" class="img-fluid" style="max-width: 100%; height: auto;" alt="Responsive image"/>
                         {% endif %}
 
                         <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
