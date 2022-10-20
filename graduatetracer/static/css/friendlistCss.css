@@ -65,10 +65,19 @@ a#\/graduate\/display-info\/ {
     margin-top: -32px!important;
     opacity: 0.5;
 }
+
+.ml-inherit {
+    margin-left: auto!important;
+}
+
 span.mr-2.d-none.d-lg-inline.text-gray-700.small{
   margin-top: -23px;
   font-size: 14px;
 }
+
+/* i.fas.fa-ellipsis-v.text-black{
+  padding-left: 36px!important;
+} */
 
 a.nav-link.post{
   margin-top: -34px!important;
