@@ -4,6 +4,7 @@ from datetime import date
 from django.contrib.auth.models import (
     AbstractBaseUser, AbstractUser, BaseUserManager
 )
+from emoji_picker.widgets import EmojiPickerTextInputAdmin, EmojiPickerTextareaAdmin
 
 
 class UserManager(BaseUserManager):

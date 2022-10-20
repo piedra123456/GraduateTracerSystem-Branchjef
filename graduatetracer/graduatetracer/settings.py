@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'django.contrib.humanize',
+    'emoji_picker',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
